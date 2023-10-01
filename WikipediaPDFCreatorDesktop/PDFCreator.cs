@@ -25,6 +25,8 @@ namespace WikipediaPDFCreatorDesktop
         string outputPath;
         string name;
 
+        public event EventHandler finished;
+
         public PDFCreator(string[] searches, string outputPath, string title)
         {
             s = searches;
@@ -105,8 +107,7 @@ namespace WikipediaPDFCreatorDesktop
                 }
 
                 doc.Close();
-                FileInfo i = new FileInfo(outputPath + @"\" + name + ".pdf");
-                Debug.WriteLine("0x00");
+                finished.Invoke(this, EventArgs.Empty);
             }
         }
 
