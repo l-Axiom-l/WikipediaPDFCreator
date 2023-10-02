@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaPDFCreator", "WikipediaPDFCreator\WikipediaPDFCreator.csproj", "{9F76499F-EE1E-4156-B0BE-95CFCC9C63B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikipediaPDFCreatorDesktop", "WikipediaPDFCreatorDesktop\WikipediaPDFCreatorDesktop.csproj", "{8E4128FF-1037-4006-BE32-9975B154D63B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaPDFCreatorDesktop", "WikipediaPDFCreatorDesktop\WikipediaPDFCreatorDesktop.csproj", "{8E4128FF-1037-4006-BE32-9975B154D63B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiPdfCreator", "WikiPdfCreator\WikiPdfCreator.csproj", "{21077BA9-1632-48F8-A506-CDB23157CD13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F76499F-EE1E-4156-B0BE-95CFCC9C63B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F76499F-EE1E-4156-B0BE-95CFCC9C63B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F76499F-EE1E-4156-B0BE-95CFCC9C63B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F76499F-EE1E-4156-B0BE-95CFCC9C63B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E4128FF-1037-4006-BE32-9975B154D63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E4128FF-1037-4006-BE32-9975B154D63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E4128FF-1037-4006-BE32-9975B154D63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E4128FF-1037-4006-BE32-9975B154D63B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21077BA9-1632-48F8-A506-CDB23157CD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21077BA9-1632-48F8-A506-CDB23157CD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21077BA9-1632-48F8-A506-CDB23157CD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21077BA9-1632-48F8-A506-CDB23157CD13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

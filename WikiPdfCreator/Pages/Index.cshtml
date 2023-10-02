@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>List</h1>
+<ul>
+    @{
+        if (Model.searches == null)
+            goto Step;
+
+        foreach (string s in Model.searches)
+        {
+            <li>@s</li>
+        }
+
+    Step:
+    }
+</ul>
+<body>
+    <form method="post">
+        <input asp-for="Message"/>
+        <br />
+        <input type="submit" />
+    </form>
+</body>

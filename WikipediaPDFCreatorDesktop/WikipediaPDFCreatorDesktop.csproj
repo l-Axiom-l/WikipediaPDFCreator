@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Company>AxiomSoftware</Company>
+    <Authors>Moritz Brosch</Authors>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\Programmieren\Zertifikat\Axiom.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <Copyright>Copyright 2023 by Moritz Brosch</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
