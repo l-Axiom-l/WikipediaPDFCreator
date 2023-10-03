@@ -14,6 +14,7 @@ namespace WikiPdfCreator.Pages
         public string Message = "";
         public bool downloadready;
         public List<string> searches;
+        public string id;
 
         public static List<PDFCreator> creatorinstances;
 
@@ -33,37 +34,40 @@ namespace WikiPdfCreator.Pages
         }
 
 
-        public void OnGet(bool f)
+        public void OnGet(bool f, string id)
         {
             if (!HttpContext.Session.TryGetValue("list", out byte[] t))
                 searches = new List<string>();
             else
                 searches = HttpContext.Session.GetString("list").Split('-').ToList();
 
-                downloadready = f;
+            downloadready = f;
+            this.id = id;
 
             Message = "";
         }
 
         public async Task<IActionResult> OnPostCreatePdf()
         {
+            downloadready = false;
             if (!HttpContext.Session.TryGetValue("list", out byte[] t))
                 return new RedirectToPageResult("Index");
             else
                 searches = HttpContext.Session.GetString("list").Split('-').ToList();
 
             Console.WriteLine("Test");
-            PDFCreator temp = new PDFCreator(searches.ToArray(), "wwwroot/documents", "test");
+            PDFCreator temp = new PDFCreator(searches.ToArray(), "wwwroot/documents", HttpContext.Session.Id);
+            id = HttpContext.Session.Id;
             creatorinstances.Add(temp);
             creatorinstances.Last().CreatePdf();
             creatorinstances.Last().finished += finished;
 
-            while(!downloadready)
+            while (!downloadready)
             {
                 await Task.Delay(100);
             }
 
-            return new RedirectToPageResult("Index", new {f = downloadready });
+            return new RedirectToPageResult("Index", new { f = downloadready, id = HttpContext.Session.Id });
         }
 
         public void OnPost()

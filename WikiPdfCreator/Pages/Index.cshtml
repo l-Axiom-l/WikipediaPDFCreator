@@ -31,7 +31,7 @@
 
     @if(Model.downloadready)
     {
-        <a href="@Url.Content("~/documents/test.pdf")" target="_blank">
+        <a href="@Url.Content($"~/documents/{Model.id}.pdf")" target="_blank">
         Download
         </a>
     }
