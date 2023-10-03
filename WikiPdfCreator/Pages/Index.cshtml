@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
 <h1>List</h1>
 <ul>
     @{
@@ -24,4 +23,19 @@
         <br />
         <input type="submit" />
     </form>
+
+    <form method="post">
+        <input type="submit" id="t" value="CreatePdf" asp-page-handler="CreatePdf" />
+    </form>
+
+
+    @if(Model.downloadready)
+    {
+        <a href="@Url.Content("~/documents/test.pdf")" target="_blank">
+        Download
+        </a>
+    }
+
+
+
 </body>

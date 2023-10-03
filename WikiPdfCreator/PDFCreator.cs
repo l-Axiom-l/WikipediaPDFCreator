@@ -11,7 +11,7 @@ using Text = iText.Layout.Element.Text;
 
 namespace WikipediaPDFCreatorDesktop
 {
-    class PDFCreator
+    public class PDFCreator
     {
         string[] s;
         string outputPath;
@@ -30,7 +30,7 @@ namespace WikipediaPDFCreatorDesktop
         {
             int count = 3;
             Dictionary<string, int> toc = new Dictionary<string, int>();
-            FileStream s = File.Create(outputPath + @"\" + name + ".pdf");
+            FileStream s = File.Create(outputPath + @"/" + name + ".pdf");
             PdfFont font = PdfFontFactory.CreateFont();
 
             WriterProperties wp = new WriterProperties();
@@ -59,6 +59,7 @@ namespace WikipediaPDFCreatorDesktop
                     result.AddNamedDestination($"{search}{count}", PdfExplicitDestination.CreateFitH(page, page.GetPageSize().GetTop()).GetPdfObject());
 
                     PdfDocument d = await GetArticle(search);
+                    if (d == null) return;
                     int temp = d.GetNumberOfPages();
                     d.CopyPagesTo(1, temp, result);
                     count += temp;
@@ -99,7 +100,12 @@ namespace WikipediaPDFCreatorDesktop
                 }
 
                 doc.Close();
-                finished.Invoke(this, EventArgs.Empty);
+                try
+                {
+                    finished.Invoke(this, EventArgs.Empty);
+                }
+                catch (NullReferenceException ex) { }
+
             }
         }
 
@@ -111,6 +117,10 @@ namespace WikipediaPDFCreatorDesktop
                 //client.DefaultRequestHeaders.UserAgent.ParseAdd("axiom@mail.gmx");
                 HttpResponseMessage response = await client.GetAsync("https://en.wikipedia.org/api/rest_v1/page/pdf/" + search);
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
                 PdfDocument d = new PdfDocument(new PdfReader(response.Content.ReadAsStream()));
                 return d;
             }
