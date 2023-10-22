@@ -30,7 +30,7 @@ namespace WikipediaPDFCreatorDesktop
         {
             int count = 3;
             Dictionary<string, int> toc = new Dictionary<string, int>();
-            FileStream s = File.Create(outputPath + @"/" + name + ".pdf");
+            FileStream s = File.Create(outputPath +".pdf");
             PdfFont font = PdfFontFactory.CreateFont();
 
             WriterProperties wp = new WriterProperties();
@@ -70,8 +70,8 @@ namespace WikipediaPDFCreatorDesktop
 
                 PdfPage p = result.AddNewPage(1);
                 Paragraph par = new Paragraph();
-                par.SetFont(PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.COURIER));
-                par.SetFontSize(60);
+                par.SetFont(PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.TIMES_BOLD));
+                par.SetFontSize(65);
                 par.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                 par.SetMarginTop(200);
                 par.Add(name);

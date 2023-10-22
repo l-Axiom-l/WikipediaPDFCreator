@@ -18,5 +18,20 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url("../images/canvas-2228506.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-bottom: 60px;
+}
+
+.button-container {
+    display: inline-flex;
+    margin-bottom:5px;
+}
+
+.button-container2 {
+    display: flow;
+    position:center;
+    margin-bottom:10px;
 }

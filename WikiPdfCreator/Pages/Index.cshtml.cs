@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Data;
+using System.Diagnostics;
 using System.Web;
 using WikipediaPDFCreatorDesktop;
 
@@ -12,6 +14,7 @@ namespace WikiPdfCreator.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         public string Message = "";
+        public string title = "";
         public bool downloadready;
         public List<string> searches;
         public string id;
@@ -33,7 +36,6 @@ namespace WikiPdfCreator.Pages
             downloadready = true;
         }
 
-
         public void OnGet(bool f, string id)
         {
             if (!HttpContext.Session.TryGetValue("list", out byte[] t))
@@ -49,6 +51,8 @@ namespace WikiPdfCreator.Pages
 
         public async Task<IActionResult> OnPostCreatePdf()
         {
+            title = Request.Form[nameof(title)];
+
             downloadready = false;
             if (!HttpContext.Session.TryGetValue("list", out byte[] t))
                 return new RedirectToPageResult("Index");
@@ -56,7 +60,7 @@ namespace WikiPdfCreator.Pages
                 searches = HttpContext.Session.GetString("list").Split('-').ToList();
 
             Console.WriteLine("Test");
-            PDFCreator temp = new PDFCreator(searches.ToArray(), "wwwroot/documents", HttpContext.Session.Id);
+            PDFCreator temp = new PDFCreator(searches.ToArray(), "wwwroot/documents" + "/" + HttpContext.Session.Id, title);
             id = HttpContext.Session.Id;
             creatorinstances.Add(temp);
             creatorinstances.Last().CreatePdf();
@@ -67,6 +71,39 @@ namespace WikiPdfCreator.Pages
                 await Task.Delay(100);
             }
 
+            return new RedirectToPageResult("Index", new { f = downloadready, id = HttpContext.Session.Id });
+        }
+
+        public async Task<IActionResult> OnPostEdit(int edit, int index)
+        {
+            downloadready = false;
+            if (!HttpContext.Session.TryGetValue("list", out byte[] t))
+                return new RedirectToPageResult("Index");
+            else
+                searches = HttpContext.Session.GetString("list").Split('-').ToList();
+
+            Debug.WriteLine("DebugNumber:" + edit.ToString() + "-" + index.ToString());
+
+            switch (edit)
+            {
+                case 0:
+                    if (index >= searches.Count - 1) break;
+                    string temp = searches[index];
+                    searches.RemoveAt(index);
+                    searches.Insert(index + 1, temp);
+                    break;
+                case 1:
+                    if (index <= 0) break;
+                    string temp2 = searches[index];
+                    searches.RemoveAt(index);
+                    searches.Insert(index - 1, temp2);
+                    break;
+                case 3:
+                    searches.RemoveAt(index);
+                    break;
+            }
+
+            HttpContext.Session.SetString("list", String.Join('-', searches));
             return new RedirectToPageResult("Index", new { f = downloadready, id = HttpContext.Session.Id });
         }
 

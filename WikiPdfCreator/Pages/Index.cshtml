@@ -3,39 +3,59 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<h1>List</h1>
-<ul>
-    @{
-        if (Model.searches == null)
-            goto Step;
 
-        foreach (string s in Model.searches)
-        {
-            <li>@s</li>
-        }
-
-    Step:
-    }
-</ul>
 <body>
-    <form method="post">
-        <input asp-for="Message"/>
-        <br />
-        <input type="submit" />
-    </form>
+    <div class="mx-auto text-center col-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>Wikipedia Book Creator</h1>
+            </div>
 
-    <form method="post">
-        <input type="submit" id="t" value="CreatePdf" asp-page-handler="CreatePdf" />
-    </form>
+            <div class="card-body align-items-lg-center">
+                <form method="post">
+                    @{
+                        if (Model.searches == null)
+                            goto Step;
+
+                        foreach (string s in Model.searches)
+                        {
+                            <a>@s</a>
+                            <div class="button-container2">
+                                <input name="Up" value="Up" type="submit" asp-page-handler="Edit" asp-route-index="@Model.searches.IndexOf(s)" asp-route-edit="1" />
+                                <input name="Down" value="Down" type="submit" asp-page-handler="Edit" asp-route-index="@Model.searches.IndexOf(s)" asp-route-edit="0" />
+                                <input name="Delete" value="Delete" type="submit" asp-page-handler="Edit" asp-route-index="@Model.searches.IndexOf(s)" asp-route-edit="3" />
+                            </div>
+                        }
+        Step:
+                    }
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <form method="post" class="button-container">
+                    <input asp-for="Message" class="m-sm-1" />
+                    <br />
+                    <input class="m-sm-1" type="submit" />
+                </form>
+
+                <form method="post">
+                    <input class="m-1" asp-for="title" placeholder="Title" />
+                    <br />
+                    <input class="m-1" type="submit" id="t" value="CreatePdf" asp-page-handler="CreatePdf" />
+                </form>
 
 
-    @if(Model.downloadready)
-    {
-        <a href="@Url.Content($"~/documents/{Model.id}.pdf")" target="_blank">
-        Download
-        </a>
-    }
-
-
-
+                @if (Model.downloadready)
+                {
+                    <a href="@Url.Content($"~/documents/{Model.id}.pdf")" target="_blank">
+                        Download
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
 </body>
+
+
+
+
